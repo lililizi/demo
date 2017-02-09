@@ -47,7 +47,6 @@ public class RedPacketController {
         Result<Exposer> result;
         try{
             Exposer exposer=service.exportRedUrl(rId);
-            System.out.println("数据"+exposer.toString());
             result=new Result<Exposer>(true,exposer);
         }catch (Exception e){
             result =new Result<Exposer>(false,e.getMessage());
@@ -63,16 +62,8 @@ public class RedPacketController {
         Result<Exposer> result;
         try {
             GetMon execution=service.getMoney(rId,phone,md5);
-            System.out.println("传输数据"+execution.toString());
             return new Result<GetMon>(true,execution);
-        }/*catch (RepeatException e){
-            GetMon ex=new GetMon(rId,"chongfu");
-            return new Result<GetMon>(false,ex);
-        }catch (GetCloseException e){
-            GetMon ex=new GetMon(rId, "end");
-            return new Result<GetMon>(false,ex);
-        }*/
-        catch (Exception e){
+        }catch (Exception e){
             GetMon ex=new GetMon(rId, GetStatEnum.INNER_ERROR);
             return new Result<GetMon>(false,ex);
         }
