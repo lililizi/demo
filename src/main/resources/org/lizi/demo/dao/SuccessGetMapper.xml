@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lizi.demo.dao.SuccessGetMapper">
+    <insert id="insertSuccessGet">
+        <!-- 主键冲突 报错-->
+        INSERT ignore into successget(r_id,user_phone,money)
+        VALUES (#{rId},#{phone},#{money})
+    </insert>
+    <select id="queryByIdWithRedPacket" resultType="org.lizi.demo.domain.SuccessGet">
+        SELECT
+        sk.r_id,sk.user_phone,sk.money,sk.create_time,
+        s.r_id as "redPacket.r_id",s.name as "redPacket.name",
+        s.balance as "redPacket.balance",s.total as "redPacket.total",
+         s.start_time as "redPacket.start_time",
+         s.end_time as "redPacket.end_time"
+        FROM successget sk INNER JOIN redpacket s ON sk.r_id=s.r_id
+        WHERE sk.r_id=#{rId} and sk.user_phone=#{phone};
+    </select>
+
+
+
+</mapper>
